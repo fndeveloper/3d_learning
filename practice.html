@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Firebase Phone Auth</title>
+</head>
+<body>
+  <h2>Phone Number Authentication</h2>
+
+  <form id="login_form">
+    <input type="tel" id="phone_number" placeholder="+92XXXXXXXXXX" required>
+    <div id="recaptcha-container"></div>
+    <button type="submit">Send OTP</button>
+  </form>
+
+  <form id="otp_form" style="display:none;">
+    <input type="text" id="otp_code" placeholder="Enter OTP">
+    <button type="submit">Verify OTP</button>
+  </form>
+
+  <div id="result"></div>
+
+  <!-- Firebase SDK -->
+  <script type="module">
+    // Firebase SDK imports
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+    import { getAuth, RecaptchaVerifier, signInWithPhoneNumber } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+
+    // Firebase config
+    const firebaseConfig = {
+      apiKey: "AIzaSyATKP7NSf-dBNYu9cwpGKvUvh3X09GlnZw",
+      authDomain: "udemy-b6fd2.firebaseapp.com",
+      projectId: "udemy-b6fd2",
+      storageBucket: "udemy-b6fd2.appspot.com",
+      messagingSenderId: "171904301792",
+      appId: "1:171904301792:web:12133f32fdd6088a416e85",
+      measurementId: "G-B5XLSM4BGR"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    let confirmationResult;
+
+    // reCAPTCHA setup
+    window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
+      'size': 'normal',
+      'callback': (response) => {
+        console.log("reCAPTCHA verified");
+      },
+      'expired-callback': () => {
+        alert("reCAPTCHA expired, please try again");
+      }
+    });
+    recaptchaVerifier.render();
+
+    // Handle OTP sending
+    const loginForm = document.getElementById("login_form");
+    loginForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const phoneNumber = document.getElementById("phone_number").value;
+      try {
+        confirmationResult = await signInWithPhoneNumber(auth, phoneNumber, window.recaptchaVerifier);
+        document.getElementById("otp_form").style.display = "block";
+        document.getElementById("result").innerText = "OTP sent successfully!";
+      } catch (error) {
+        document.getElementById("result").innerText = "Error sending OTP: " + error.message;
+      }
+    });
+
+    // Handle OTP verification
+    const otpForm = document.getElementById("otp_form");
+    otpForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const otpCode = document.getElementById("otp_code").value;
+      try {
+        const result = await confirmationResult.confirm(otpCode);
+        const user = result.user;
+        document.getElementById("result").innerText = "Phone number verified. UID: " + user.uid;
+      } catch (error) {
+        document.getElementById("result").innerText = "OTP verification failed: " + error.message;
+      }
+    });
+  </script>
+</body>
+</html>
