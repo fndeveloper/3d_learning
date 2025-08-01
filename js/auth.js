@@ -21,7 +21,7 @@
 
 onAuthStateChanged(Auth, (user) => {
   if (user) {
-    console.log(user);
+    // console.log(user);
     localStorage.setItem("current_user",JSON.stringify(user))
     // User is signed in, see docs for a list of available properties
     // https://firebase.google.com/docs/reference/js/auth.user
@@ -37,12 +37,10 @@ onAuthStateChanged(Auth, (user) => {
 console.log();
 // =================== LOGIN CODE IS START HERE ============================
 var submit_signup=document.getElementById("submit_signup");
+if(submit_signup){
 submit_signup.addEventListener("click",(e)=>{
   e.preventDefault()
 var signup_form=document.getElementById("signup_form");
-
-
-
 
  createUserWithEmailAndPassword(Auth, signup_form.querySelector("#email").value, signup_form.querySelector("#password").value)
   .then((userCredential) => {
@@ -91,9 +89,12 @@ signup_form.reset();
   });
 
 })
+}
+// end 
 
 // ============================================================
 var submit_login=document.getElementById("submit_login");
+if(submit_login){
 submit_login.addEventListener("click",(e)=>{
   e.preventDefault()
 var login_form=document.getElementById("login_form");
@@ -109,7 +110,7 @@ setPersistence(Auth,  persistenceType)
   .then((userCredential) => {
     // Signed in 
     const user = userCredential.user;
-    console.log(user);
+    // console.log(user);
     
     if(!user.emailVerified){
 
@@ -128,6 +129,7 @@ setPersistence(Auth,  persistenceType)
   draggable: true
 });
 setTimeout(() => {
+  location.reload()
         window.location.href="index.html"
 }, 2500);
   
@@ -146,8 +148,30 @@ setTimeout(() => {
   });
 
 })
+}
+// end
 
+
+
+// 
+var logout_user=document.getElementById("logout_user");
+if(logout_user){
+  logout_user.addEventListener("click",()=>{
+
+  signOut(Auth).then(() => {
+    localStorage.setItem("current_user_data_docs","")
+    localStorage.setItem("current_user","")
+alert("signout")
+location.reload()
+}).catch((error) => {
+  // An error happened.
+});
+})
+
+}
+// 
 // =================== LOGIN CODE IS END HERE =================================
+if(document.getElementById("goToSignup")){
 document.getElementById("goToSignup").addEventListener("click", function (e) {
   e.preventDefault();
 
@@ -164,9 +188,10 @@ document.getElementById("goToSignup").addEventListener("click", function (e) {
   });
   document.querySelector('[data-bs-target="#profile"]').classList.add('active');
 });
-
+}
 
 // ================================ GO TO SIGN IN =======================
+if(document.getElementById("goToSigin")){
 document.getElementById("goToSigin").addEventListener("click", function (e) {
   e.preventDefault();
 
@@ -183,32 +208,21 @@ document.getElementById("goToSigin").addEventListener("click", function (e) {
   });
   document.querySelector('[data-bs-target="#profile"]').classList.remove('active');
 });
+}
 
 
 
 // ================================= GET A DATA FROM DATABSE OF USERS START =============================================
 const querySnapshot = await getDocs(collection(db, "users"));
 querySnapshot.forEach((doc) => {
-  // doc.data() is never undefined for query doc snapshots
-  // console.log(JSON.parse(localStorage.getItem("current_user")).uid);
+
+
   if(doc.data().id_user === JSON.parse(localStorage.getItem("current_user")).uid ){
     console.log(doc.data())
     localStorage.setItem("current_user_data_docs",JSON.stringify(doc.data()))
   }
+
 });
-
-
-
 // ================================= GET A DATA FROM DATABSE OF USERS END =============================================
 
 
-var logout_user=document.getElementById("logout_user");
-logout_user.addEventListener("click",()=>{
-  console.log("ss");
-  
-  signOut(Auth).then(() => {
-alert("signout")
-}).catch((error) => {
-  // An error happened.
-});
-})
