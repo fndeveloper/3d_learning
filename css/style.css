@@ -60,8 +60,10 @@ body.fade-in {
     border: none !important;
     visibility: hidden;
 }
-.h_90{
+@media (min-width:992px) {
+    .h_90{
     height: 90vh !important;
+}
 }
 .lg_navbar .dropdown:hover .dropdown-menu {
     opacity: 1;
@@ -71,9 +73,12 @@ body.fade-in {
 .lg_navbar .dropdown-menu .dropdown-item {
     border: 0 !important;
 }
+
  .nav-item .nav-link {
     transition: 0.5s ease-in-out;
     margin: 0% 19%;
+    padding: 0px 20px !important;
+    /* background-color: red !important; */
     color: var(--color-text) !important;
     width: 100% ;
 }
@@ -277,4 +282,8 @@ background-position: center !important;
 
 .fs_14{
     font-size: 13px !important;
+}
+.auth_tabs .nav-link.active{
+    background-color: rgb(241, 241, 241);
+
 }

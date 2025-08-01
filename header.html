@@ -64,7 +64,7 @@
         <nav class="navbar navbar-expand-lg     py-1 large_nav lg_navbar " id="navbar">
             <div class="container-fluid pos">
                 <a class="navbar-brand   col-1" href="#">
-                    <img src="assets/logo/download.jpg" class="img-fluid col-6" alt="">
+                    <img src="assets/image/logo/download.jpg" class="img-fluid col-6" alt="">
                 </a>
 
                 <!-- OFFCANVAS BTN START -->
@@ -74,7 +74,7 @@
                 </button>
                 <!-- OFFCANVAS BTN END -->
               <div class=" collapse sdsd navbar-collapse  " id="navbarSupportedContent">
-          <ul class="navbar-nav   mt-2 mb-lg-0 col-7 d-lg-flex mx-auto  justify-content-center align-items-center mx-auto  d-none">
+          <ul class="navbar-nav   mt-2 mb-lg-0 col-9 d-lg-flex mx-auto  justify-content-center align-items-center mx-auto  d-none">
             <li class="nav-item">
               <a aria-current="page" class="nav-link" href="/">Home</a>
               <span class="navhover"></span>
@@ -204,11 +204,14 @@
           </ul>
 
           <!-- ======================== Offcanvas Button ======================== -->
-          <form class="d-flex  col-lg-4" role="search">
-        <input class="form-contro " type="search" placeholder="Search" aria-label="Search"/>
-   <button>
-    <a href="login.html" class="text-decoration-none">Login / Sign-Up</a>
-   </button>
+          <form class="d-flex p-2 bg_light col-lg-1 ms-auto d-lg-flex justify-content-end align-items-center"  id="profile_div">
+       
+<button type="button"  class="  border-0 rounded-3 px-3 d-flex flex-row align-items-center"
+    data-bs-toggle="modal" data-bs-target="#exampleModal">
+<a href="login.html">Login / Sign-Up</a>
+</button>
+
+
       </form>
         </div>
             </div>
@@ -269,52 +272,16 @@
 
     </header>
     <!-- HEADER END -->
-
-
-<!-- 
-
-<div class="div_of_stick">
-  <button class="btn border-1  bg text-white shadow-lg text-decoration-none border-0 shadow_lg btn_of_appointment"
-          data-bs-toggle="modal" data-bs-target="#exampleModal">
-    Schedule Appointment
-  </button>
-</div>
-
-
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-    <div class="modal-content card card-body shadow-lg">
-      <main>
-        <div class="bg-white p-3 rounded-3">
-
-          <div class="mb-4">
-            <h5 class="h5 fw-bold">Schedule Your Appointment</h5>
-            <div class="d-flex">
-              <p class="text-muted mb-0">We are here to help you 24/7 <br> with experts</p>
-              <img src="assets/images/image/ai_face_image.png" class="img-fluid col-2 ms-auto" alt="">
-            </div>
-          </div>
-
-      
-          <form class="needs-validation">
-            <div class="mb-3">
-              <input type="text" class="form-control" name="name" placeholder="Name" required>
-            </div>
-            <div class="mb-3">
-              <input type="email" class="form-control" name="email" placeholder="E-Mail" required>
-            </div>
-            <div class="mb-3">
-              <input type="text" class="form-control" name="phone" placeholder="Phone Number" required>
-            </div>
-            <div class="mb-3">
-              <input type="text" class="form-control" name="website" placeholder="Your Website" required>
-            </div>
-            <div class="d-grid">
-              <button type="submit" class="btn bg_light shadow_lg fw-normal mb-3 col-6 p-1 mx-auto">Submit Now</button>
-            </div>
-          </form>
-        </div>
-      </main>
+<!-- Modal -->
+<div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog  modal-dialog-centered ">
+    <div class="modal-content ">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Profile Details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body " id="porfile_modal_body">
+    
     </div>
   </div>
-</div> -->
+</div>
