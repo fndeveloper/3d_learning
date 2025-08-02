@@ -17,24 +17,101 @@
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
   const Auth = getAuth(app);
+  // ================================= GET A DATA FROM DATABSE OF USERS START =============================================
+const querySnapshot = await getDocs(collection(db, "users"));
+
+const currentUserRaw = localStorage.getItem("current_user");
+
+if (currentUserRaw) {
+  try {
+    const currentUser = JSON.parse(currentUserRaw);
+
+    querySnapshot.forEach((doc) => {
+      if (doc.data().id_user === currentUser.uid) {
+        localStorage.setItem("current_user_data_docs", JSON.stringify(doc.data()));
+
+      }
+    });
+
+  } catch (error) {
+    console.error("Error parsing current_user from localStorage:", error);
+  }
+} else {
+  console.warn("No current_user found in localStorage.");
+}
+
+// ================================= GET A DATA FROM DATABSE OF USERS END =============================================
+var submit_login=document.getElementById("submit_login");
+if(submit_login){
+submit_login.addEventListener("click",(e)=>{
+  e.preventDefault()
+var login_form=document.getElementById("login_form");
+  const rememberMe = document.getElementById("rememberMe").checked;
+ const persistenceType = rememberMe ? browserLocalPersistence : browserSessionPersistence;
+setPersistence(Auth,  persistenceType)
+  .then(() => {
+   
+    return signInWithEmailAndPassword(Auth, login_form.querySelector("#email").value, login_form.querySelector("#password").value)
+  })
+ 
+
+  .then((userCredential) => {
+    // Signed in 
+    const user = userCredential.user;
+    // console.log(user);
+    
+    if(!user.emailVerified){
+
+        Swal.fire({
+  icon: "error",
+  title: "Oops...",
+  text: `First Vereifed Your Email `,
+
+});
+    }
+    else{
+   
+      Swal.fire({
+  title: "Login Successfull",
+  icon: "success",
+  draggable: true
+});
+setTimeout(() => {
+      window.location.href="index.html";
+}, 500);
+    }
+    // ...
+  })
+  .catch((error) => {
+
+    Swal.fire({
+  icon: "error",
+  title: "Oops...",
+  text: `Something went wrong! ${error.message}`,
+
+});
+
+  });
+
+})
+}
+
 // ============== FIND A CURRENT USER CODE START =========================
 
 onAuthStateChanged(Auth, (user) => {
   if (user) {
-    // console.log(user);
+
     localStorage.setItem("current_user",JSON.stringify(user))
-    // User is signed in, see docs for a list of available properties
-    // https://firebase.google.com/docs/reference/js/auth.user
+  
     const uid = user.uid;
-    // ...
+
   } else {
-    // User is signed out
-    // ...
+
   }
 });
 // ============== FIND A CURRENT USER CODE END =========================
 
-console.log();
+
 // =================== LOGIN CODE IS START HERE ============================
 var submit_signup=document.getElementById("submit_signup");
 if(submit_signup){
@@ -93,84 +170,29 @@ signup_form.reset();
 // end 
 
 // ============================================================
-var submit_login=document.getElementById("submit_login");
-if(submit_login){
-submit_login.addEventListener("click",(e)=>{
-  e.preventDefault()
-var login_form=document.getElementById("login_form");
-  const rememberMe = document.getElementById("rememberMe").checked;
- const persistenceType = rememberMe ? browserLocalPersistence : browserSessionPersistence;
-setPersistence(Auth,  persistenceType)
-  .then(() => {
-   
-    return signInWithEmailAndPassword(Auth, login_form.querySelector("#email").value, login_form.querySelector("#password").value)
-  })
- 
 
-  .then((userCredential) => {
-    // Signed in 
-    const user = userCredential.user;
-    // console.log(user);
-    
-    if(!user.emailVerified){
-
-        Swal.fire({
-  icon: "error",
-  title: "Oops...",
-  text: `First Vereifed Your Email `,
-
-});
-    }
-    else{
-   
-      Swal.fire({
-  title: "Login Successfull",
-  icon: "success",
-  draggable: true
-});
-setTimeout(() => {
-  // location.reload()
-    window.location.assign("index.html");
-
-   
-}, 3500);
-  
-    }
-    // ...
-  })
-  .catch((error) => {
-
-    Swal.fire({
-  icon: "error",
-  title: "Oops...",
-  text: `Something went wrong! ${error.message}`,
-
-});
-
-  });
-
-})
-}
 // end
 
 
 
 // 
-var logout_user=document.getElementById("logout_user");
-if(logout_user){
-  logout_user.addEventListener("click",()=>{
+setTimeout(() => {
+  const logout_user = document.getElementById("logout_user");
+  if (logout_user) {
+    logout_user.addEventListener("click", (e) => {
+      e.preventDefault();
+      signOut(Auth).then(() => {
+        localStorage.setItem("current_user_data_docs", "");
+        localStorage.setItem("current_user", "");
+        alert("Signed out");
+        location.reload();
+      }).catch((error) => {
+        alert("Error signing out");
+      });
+    });
+  }
+}, 500);
 
-  signOut(Auth).then(() => {
-    localStorage.setItem("current_user_data_docs","")
-    localStorage.setItem("current_user","")
-alert("signout")
-location.reload()
-}).catch((error) => {
-  // An error happened.
-});
-})
-
-}
 // 
 // =================== LOGIN CODE IS END HERE =================================
 if(document.getElementById("goToSignup")){
@@ -213,30 +235,5 @@ document.getElementById("goToSigin").addEventListener("click", function (e) {
 }
 
 
-
-// ================================= GET A DATA FROM DATABSE OF USERS START =============================================
-const querySnapshot = await getDocs(collection(db, "users"));
-
-const currentUserRaw = localStorage.getItem("current_user");
-
-if (currentUserRaw) {
-  try {
-    const currentUser = JSON.parse(currentUserRaw);
-
-    querySnapshot.forEach((doc) => {
-      if (doc.data().id_user === currentUser.uid) {
-        localStorage.setItem("current_user_data_docs", JSON.stringify(doc.data()));
-
-      }
-    });
-
-  } catch (error) {
-    console.error("Error parsing current_user from localStorage:", error);
-  }
-} else {
-  console.warn("No current_user found in localStorage.");
-}
-
-// ================================= GET A DATA FROM DATABSE OF USERS END =============================================
 
 

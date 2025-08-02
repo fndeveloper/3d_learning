@@ -145,7 +145,17 @@ body.fade-in {
     right: 1%;
     z-index: 100;
 }
-
+.modal{
+    z-index: 93939 !important;
+}
+.logout_btn_here{
+    transition: 0.6s ease-in-out !important;
+    z-index: 929292 !important;
+}
+.logout_btn_here:hover{
+    color: white !important;
+    background-color: var(--bg) !important;
+}
 .scroll_top_btn button {
     border: 0;
     padding: 10px 15px;
