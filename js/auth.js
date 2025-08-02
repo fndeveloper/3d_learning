@@ -129,9 +129,11 @@ setPersistence(Auth,  persistenceType)
   draggable: true
 });
 setTimeout(() => {
-  location.reload()
-        window.location.href="index.html"
-}, 2500);
+  // location.reload()
+    window.location.assign("index.html");
+
+   
+}, 3500);
   
     }
     // ...
@@ -214,15 +216,27 @@ document.getElementById("goToSigin").addEventListener("click", function (e) {
 
 // ================================= GET A DATA FROM DATABSE OF USERS START =============================================
 const querySnapshot = await getDocs(collection(db, "users"));
-querySnapshot.forEach((doc) => {
 
+const currentUserRaw = localStorage.getItem("current_user");
 
-  if(doc.data().id_user === JSON.parse(localStorage.getItem("current_user")).uid ){
-    console.log(doc.data())
-    localStorage.setItem("current_user_data_docs",JSON.stringify(doc.data()))
+if (currentUserRaw) {
+  try {
+    const currentUser = JSON.parse(currentUserRaw);
+
+    querySnapshot.forEach((doc) => {
+      if (doc.data().id_user === currentUser.uid) {
+        localStorage.setItem("current_user_data_docs", JSON.stringify(doc.data()));
+
+      }
+    });
+
+  } catch (error) {
+    console.error("Error parsing current_user from localStorage:", error);
   }
+} else {
+  console.warn("No current_user found in localStorage.");
+}
 
-});
 // ================================= GET A DATA FROM DATABSE OF USERS END =============================================
 
 

@@ -13,13 +13,14 @@ if (header) {
     .then((data) => {
       header.innerHTML = data;
 // =============== TO CHECK A CURRENT USER LOGIN COCDE START ======================
-var current_use=JSON.parse(localStorage.getItem("current_user_data_docs"))
-var profile_div=document.getElementById("profile_div");
-var porfile_modal_body=document.getElementById("porfile_modal_body");
 
+var current_use=localStorage.getItem("current_user_data_docs")
 
 if(current_use){
-  console.log(current_use);
+  var profile_div=document.getElementById("profile_div");
+  var porfile_modal_body=document.getElementById("porfile_modal_body");
+
+  current_use=JSON.parse(current_use)
   
 profile_div.innerHTML=`
 <button type="button"  class="  border-0 rounded-3 px-3 d-flex flex-row align-items-center"
@@ -39,11 +40,11 @@ porfile_modal_body.innerHTML=`
 
       <div>
  
-        <p class"fw-lighter"> Email : ${current_use.email_user}</p>
-        <p class"fw-lighter">Qualification : ${current_use.qualification}</p>
-     <p class"fw-lighter">Level: ${current_use.Account_Type}</p>
+        <p > Email : ${current_use.email_user}</p>
+        <p >Qualification : ${current_use.qualification}</p>
+     <p >Level: ${current_use.Account_Type}</p>
      
-     <p class"fw-lighter">Feild : ${current_use.fieldOfStudy}</p>
+     <p >Feild : ${current_use.fieldOfStudy}</p>
       </div>
       </div>
       <div class="modal-footer d-flex flex-row justify-content-center align-items-center">
@@ -55,26 +56,13 @@ porfile_modal_body.innerHTML=`
 
 
 } 
-
+else{
+ 
+}
 // =============== TO CHECK A CURRENT USER LOGIN COCDE END ======================
 
    
-      document.querySelectorAll('a[href]').forEach(link => {
-        const href = link.getAttribute('href');
-
-        if (href && !href.startsWith('http') && !href.startsWith('#') && !link.hasAttribute('target')) {
-          link.addEventListener('click', function (e) {
-            e.preventDefault();
-
-            document.body.classList.remove("fade-in"); 
-            document.body.style.opacity = 0;
-
-            setTimeout(() => {
-              window.location.href = href;
-            }, 600); 
-          });
-        }
-      });
+   
     });
 }
 

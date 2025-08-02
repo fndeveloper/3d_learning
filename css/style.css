@@ -28,7 +28,13 @@ opacity: 0;
 body.fade-in {
   opacity: 1;
 }
-
+.course_img_home{
+    object-fit: cover;
+    height: 250px !important;
+}
+.li_course_dec{
+    font-size: 13px !important;
+}
 /* ========== FOR PAGE TRANSIRTION CODE END ================*/
 .col_light{
     color: rgb(121, 121, 121) !important;
@@ -69,11 +75,16 @@ body.fade-in {
     opacity: 1;
     visibility: visible;
 }
-
+ body.modal-open {
+    overflow: auto !important;
+    padding-right: 0 !important;
+  }
 .lg_navbar .dropdown-menu .dropdown-item {
     border: 0 !important;
 }
-
+#profile_div{
+    z-index: 1111 !important;
+}
  .nav-item .nav-link {
     transition: 0.5s ease-in-out;
     margin: 0% 19%;
