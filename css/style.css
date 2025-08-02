@@ -30,7 +30,7 @@ body.fade-in {
 }
 .course_img_home{
     object-fit: cover;
-    height: 250px !important;
+    height: 200px !important;
 }
 .li_course_dec{
     font-size: 13px !important;
@@ -74,6 +74,14 @@ body.fade-in {
 .lg_navbar .dropdown:hover .dropdown-menu {
     opacity: 1;
     visibility: visible;
+}
+.card_of_course_home{
+    border-radius: 15px !important;
+    border: 1px solid rgb(223, 223, 223);
+}
+.card_of_course_home img{
+    border-radius: 15px !important;
+
 }
  body.modal-open {
     overflow: auto !important;
@@ -122,6 +130,14 @@ body.fade-in {
 .fs_6{
     font-size: 15px;
     text-align: justify !important;
+}
+.fs_14{
+    font-size: 14px !important;
+}
+.para_of_view{
+    text-align: justify;
+    font-weight: 500 !important;
+    font-size: 15px !important;
 }
 .scroll_top_btn {
     position: fixed;
