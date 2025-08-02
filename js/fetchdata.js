@@ -40,16 +40,19 @@ const home_course = document.getElementById("home_course");
 if (home_course) {
   const querySnapshot = await getDocs(collection(db, "courses"));
 
+
   let courseHTML = "";
 
   querySnapshot.forEach((doc) => {
     const course = doc.data();
+console.log(doc.data());
+
 
     courseHTML += `
       <div class="col-md-4 mb-4 ">
 
-        <div class="card_of_course_home h-100  p-2 ">
-          <img src="${course.image}" class="card-img-top col-12 course_img_home rounded-3" alt="${course.name}">
+        <div class="card_of_course_home h-100  p-lg-1 ">
+          <img src="${course.image}" class="card-img-top col-12 course_img_home rounded-3 p-1" alt="${course.name}">
           <div class="card-body">
             <h5 class="card-title">${course.name}</h5>
             <ul class="list-unstyled d-flex flex-row justify-content-start gap-2 mt-3 li_course_dec ">
