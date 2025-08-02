@@ -45,7 +45,7 @@ if (home_course) {
 
   querySnapshot.forEach((doc) => {
     const course = doc.data();
-console.log(doc.data());
+
 
 
     courseHTML += `
